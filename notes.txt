@@ -1,0 +1,24 @@
+when there are trades in dmg to both opponents, you take the difference between both damage values
+limitations:
+- recoverable damage is erroneously considered equal to full damage
+- how were calculating grab damage
+- frame advantage not considered outside of direct punishes
+- unoptimal float combo damage
+- in rage art scenarios, we do not include the healing in the calculation
+- assumes human is breaking no-mix throws 100%
+
+
+notes:
+- you can compute dominated payoffs by multiplying the dominated option's payoff with the nash equilibrium's 
+distribution for the optimal defender's moves
+SUM of dominated payoff per option times the nash equilibrium distribution for that option
+- added nash equilbrium to BT4 on block (which was computed separately)
+
+exclusions
+- 1,2f (-13 into lib)
+- f 3+4 (backturn to lib)
+- BT sidestep (0 payoff except against hopkick and loses to mash)
+- b 1+2 (mostly zero)
+- b (leaves BT)
+- db(evasive leave out of bt)
+- rage art

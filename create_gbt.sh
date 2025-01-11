@@ -1,0 +1,1 @@
+python json2gbt.py azu_12bplus8_reina.json -o azu_12bplus8_reina.gbt
