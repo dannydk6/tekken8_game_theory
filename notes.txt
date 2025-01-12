@@ -6,13 +6,37 @@ limitations:
 - unoptimal float combo damage
 - in rage art scenarios, we do not include the healing in the calculation
 - assumes human is breaking no-mix throws 100%
+- string extensions are treated as separate strategies for the player upstream when
+  the string is not hit confirmable. This is because you have to "rip it" in order to get
+  the guaranteed combo damage 
 
+methodology:
+- any time the defender has a choice to make a new action, a new node is created.
+- For example, if the defender blocks BT.1, a new node is created for the BT.1 (+0) interaction.
+- Furthermore, the string extensions out of BT.1 (BT.1,2 or BT.1,4) will be considered in the original node,
+as well as the downstream node.
+- This is done to make a distinction between BT.1 on hit vs BT.1 on block. The move combos, and the player
+has to make a decision between BT.12, BT.11, or just BT.1 on its own. Capturing this difference allows
+for further refinement of the approximated payoff of choosing that option.
+- When strings branch out into downstream nodes, the payoff from downstream needs to substituted into the upstream.
+- For example, 
+take upstream 1,2~B (+8) and downstream BT.1 (+0) on block with string extensions BT.1,2 and BT1,4.
+BT.1,2 and BT1,4 downstream payoffs should be substituted into their upstream equivalents.
+This is done to take into account the defender's choice to crouch after BT.1 on block, which would otherwise
+skew BT.1,2's payoff towards a positive number.
+- the decision point of the attacker for strings determines whether an option/strategy is upstream or downstream
 
 notes:
 - you can compute dominated payoffs by multiplying the dominated option's payoff with the nash equilibrium's 
 distribution for the optimal defender's moves
 SUM of dominated payoff per option times the nash equilibrium distribution for that option
 - added nash equilbrium to BT4 on block (which was computed separately)
+- BT.1,2~f is r20 into LIB by frame measurement. 
+In practice, when the opponent is choosing passive defensive options such as block, 
+crouch, and sidestep, frame advantage in ideal defensive conditions for the opponent 
+into LIB on average can be considered to be +3 for the purposes of these calculations.
+This is due to needing to react to Azucena going into LIB.
+- whiffed crouch jabs and single stand jabs are considered as not punishable.
 
 exclusions
 - 1,2f (-13 into lib)
@@ -22,3 +46,23 @@ exclusions
 - b (leaves BT)
 - db(evasive leave out of bt)
 - rage art
+
+TODOS:
+- df1 on block into extensions
+- oki scenarios (BT +6 straight wall FFBU)
+- add oki scenarios to payoffs
+- LIB (+8)
+- LIB (+3)
+- LIB (-3)
+- BT (+2)
+- opponent crouched BT (-7) for db3 on block (probably bullshit to calc this)
+- wr32 (+2)
+- Clive f1+2 (-9)
+- PHX (+5)
+- PHX in neutral
+- Hwoarang d3,4 (low high string)
+- youtube video explainer after premier tournament performance
+- practice qcb
+- graph / tree of connecting the options together
+- *** BT.4,3 shenanigans in the data (if you're gonna press 4, rip it)
+- *** how to handle payoffs for blocked string starters (BT.1, BT.4)
