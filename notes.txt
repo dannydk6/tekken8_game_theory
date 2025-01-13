@@ -8,7 +8,9 @@ limitations:
 - assumes human is breaking no-mix throws 100%
 - string extensions are treated as separate strategies for the player upstream when
   the string is not hit confirmable. This is because you have to "rip it" in order to get
-  the guaranteed combo damage 
+  the guaranteed combo damage
+- delayed timing changes the gto calculations. We are excluding delayed timing for moves.
+- assume the sidestep glitch is patched where you can't buffer sidestep into foreground.
 
 methodology:
 - any time the defender has a choice to make a new action, a new node is created.
@@ -25,6 +27,10 @@ BT.1,2 and BT1,4 downstream payoffs should be substituted into their upstream eq
 This is done to take into account the defender's choice to crouch after BT.1 on block, which would otherwise
 skew BT.1,2's payoff towards a positive number.
 - the decision point of the attacker for strings determines whether an option/strategy is upstream or downstream
+- if the gto distribution contains a string starter as an option, back induction is required for downstream string extension percentages.
+- how we do back induction: summation of the probabilities times their payoffs
+- how much does the threat of the other options reduce the damage taken by BT.3,4 on block?
+(sum of probabilities of defender's gto winning options) * payoff
 
 notes:
 - you can compute dominated payoffs by multiplying the dominated option's payoff with the nash equilibrium's 
@@ -66,3 +72,4 @@ TODOS:
 - graph / tree of connecting the options together
 - *** BT.4,3 shenanigans in the data (if you're gonna press 4, rip it)
 - *** how to handle payoffs for blocked string starters (BT.1, BT.4)
+- may need to add SSR~db as defensive option
