@@ -73,3 +73,7 @@ TODOS:
 - *** BT.4,3 shenanigans in the data (if you're gonna press 4, rip it)
 - *** how to handle payoffs for blocked string starters (BT.1, BT.4)
 - may need to add SSR~db as defensive option
+- low parry needs to be added to all strings
+- w3,2
+- f+4
+- 
