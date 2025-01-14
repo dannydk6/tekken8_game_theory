@@ -76,4 +76,4 @@ TODOS:
 - low parry needs to be added to all strings
 - w3,2
 - f+4
-- 
+- BT (-5) raw
