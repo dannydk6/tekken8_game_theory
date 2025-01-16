@@ -197,7 +197,7 @@ def full_run(out_filename,
         js=''
         if file_extension == '.json':
             with open(f'{input_dir}/{scenario_file}', 'w') as f:
-                js = json.read(f)
+                js = json.load(f)
         else:
             js = excel_to_json(scenario_file, base_path=input_dir)
 
