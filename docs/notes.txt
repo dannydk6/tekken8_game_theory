@@ -77,3 +77,9 @@ TODOS:
 - w3,2
 - f+4
 - BT (-5) raw
+
+kuma scenarios:
+- db4 (+6)
+- headbutt (+3)
+- headbutt on heat dash (+5)
+- ff1+2 into hbs (+8)
