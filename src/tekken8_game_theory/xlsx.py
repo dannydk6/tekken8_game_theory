@@ -1,12 +1,12 @@
 """Create input and output excel files for GTO"""
 
 import os
+import json
 import pandas as pd
-import pygambit as gbt
-from openpyxl import load_workbook
 from openpyxl.styles import Alignment, Font, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 
+from .convert import json_to_gbt, excel_to_json
 from .gto import create_gto_distribution
 from .utils import number_to_letter, full_path
 
@@ -153,3 +153,62 @@ def create_excel_file(out_filename, input_dir, output_dir=None, precision=0, dro
                 sheet.column_dimensions[col_letter].width = max_length + 2  # Add some padding
 
     return gto_distributions
+
+def full_run(out_filename, 
+             input_dir,
+             artifacts_dir,
+             output_dir=None, 
+             precision=0, 
+             drop_zeros=True):
+    """
+    Create an excel file which contains all the nash equilibrium payoffs computed for .gbt files 
+    in artifacts_dir. The .gbt files are obtained by converting json and .xlsx files from input_dir
+    
+    Args:
+        out_filename (str): Name of the output file.
+        input_dir (str): Folder containing .xlsx and/or .json files.
+        artifacts_dir (str): Folder containing .gbt files.
+        output_dir (str|Optional): optional output directory for the excel file
+        precision (int): Precision for float values.
+        drop_zeros (bool): Whether to drop zeros from distributions.
+    
+    Returns:
+        Writes excel file.
+    """
+    # Files in input_dir
+    scenario_files = os.listdir(input_dir)
+    
+    # Iterate over input files  
+    for scenario_file in scenario_files:
+
+        file_extension = ''
+        if scenario_file.endswith('.json'):
+            file_extension = '.json'
+        elif scenario_file.endswith('.xlsx'):
+            file_extension = '.xlsx'
+        else:
+            print(f'Warning: {scenario_file} is not a .json or .xlsx and will be ignored.')
+            continue
+
+        # Set path for .gbt converted file based on artifacts_dir
+        out_file = scenario_file.replace(file_extension, '.gbt')
+        out_path = f'{artifacts_dir}/{out_file}'
+
+        js=''
+        if file_extension == '.json':
+            with open(f'{input_dir}/{scenario_file}', 'w') as f:
+                js = json.read(f)
+        else:
+            js = excel_to_json(scenario_file, base_path=input_dir)
+
+        gbt = json_to_gbt(js, out_path)
+    
+    # Create final excel file
+    gto_distributions = create_excel_file(out_filename, 
+                                          input_dir=artifacts_dir, 
+                                          output_dir=output_dir, 
+                                          precision=precision, 
+                                          drop_zeros=drop_zeros)
+    
+    return gto_distributions
+    

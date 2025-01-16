@@ -1,4 +1,31 @@
 import json
+import pandas as pd
+from .utils import full_path
+
+def excel_to_json(filename, base_path=None, out_path=None):
+    if not filename.endswith(".xlsx"):
+        raise ValueError("Only .xlsx files are supported.")
+    filepath = full_path(filename, base_path) if base_path else filename
+    
+    attribs = pd.read_excel(filepath, sheet_name=0)
+
+    atr = {}
+    for index, row in attribs.iterrows():
+        atr[row['key']] = row['value']
+
+    df = pd.read_excel(filepath, sheet_name=1)
+
+    atr["P1-strats"] = df.strats.tolist()
+    atr["P2-strats"] = df.columns.tolist()[1:]
+    dfc = df.drop(columns=df.columns[0]).values.tolist()
+    atr["payoffs"] = dfc
+
+    if out_path:
+        with open(out_path,"w") as f:
+            json.dump(atr, f)   
+
+    return atr
+
 
 def get_gambit_matrix(payoffs):
     rows = len(payoffs)
@@ -16,7 +43,7 @@ def get_gambit_matrix(payoffs):
     # print(payoff_list, indices)
     return payoff_list, indices
 
-def json_to_gbt(input_dict) -> str:
+def json_to_gbt(input_dict, out_path=None) -> str:
     template = """
 <?xml version="1.0" encoding="UTF-8"?>
 <gambit:document xmlns:gambit="http://gambit.sourceforge.net/" version="0.1">
@@ -53,4 +80,8 @@ NFG 1 R "{title}" {{ "{P1}" "{P2}" }}
     # print(input_dict['payoff-list-str'])
     input_dict['indices-str'] = ' '.join([str(index) for index in indices])
     gbt = template.format(**input_dict)
+
+    if out_path:
+        with open(out_path, 'w') as out:
+            out.write(gbt)
     return gbt
