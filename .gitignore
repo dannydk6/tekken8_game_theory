@@ -2,3 +2,4 @@
 .ipynb_checkpoints
 build/
 src/tekken8_game_theory.egg-info/
+.~lock.*
