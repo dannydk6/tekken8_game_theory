@@ -10,3 +10,7 @@ Then, while in the root directory of the repo, run the following script to gener
 python tekken8_gto.py --name $CHARACTER_NAME
 
 Currently supported character names are 'azucena' or 'reina'.
+
+Credit to https://wavu.wiki/t/Template:Mixup for the json2gbt.py script for converting JSON to .gbt files.
+
+Credit to Kalki for the basis on analysis from the wavu wiki.
