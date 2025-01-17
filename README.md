@@ -2,10 +2,11 @@
 
 To run the scripts, You need to use conda or a virtual environment with Python >= 3.8.
 
-pip install -r requirements.txt
-
-You also need to install the package locally:
+You will need to install the package locally:
 
 pip install .
 
-Then run jupyter notebook so you can open the notebooks and run them.
+Then, while in the root directory of the repo, run the following script to generate up-to-date output files for each character:
+python tekken8_gto.py --name $CHARACTER_NAME
+
+Currently supported character names are 'azucena' or 'reina'.
