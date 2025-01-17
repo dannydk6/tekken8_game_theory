@@ -196,7 +196,7 @@ def full_run(out_filename,
 
         js=''
         if file_extension == '.json':
-            with open(f'{input_dir}/{scenario_file}', 'w') as f:
+            with open(f'{input_dir}/{scenario_file}', 'r') as f:
                 js = json.load(f)
         else:
             js = excel_to_json(scenario_file, base_path=input_dir)
@@ -211,4 +211,3 @@ def full_run(out_filename,
                                           drop_zeros=drop_zeros)
     
     return gto_distributions
-    
