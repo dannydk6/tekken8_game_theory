@@ -146,8 +146,3 @@ test = ["coverage"]
 "Homepage" = "https://github.com/dannydk6/tekken8_game_theory"
 "Bug Reports" = "https://github.com/dannydk6/tekken8_game_theory/issues"
 "Source" = "https://github.com/dannydk6/tekken8_game_theory/"
-
-# The following would provide a command line executable called `sample`
-# which executes the function `main` from this package when invoked.
-[project.scripts]
-sample = "tekken8_game_theory:main"
