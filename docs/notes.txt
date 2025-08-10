@@ -83,3 +83,10 @@ kuma scenarios:
 - headbutt (+3)
 - headbutt on heat dash (+5)
 - ff1+2 into hbs (+8)
+
+xiaoyu:
+- AOP 3+4 oki (FU head towards)
+- adding parry to mixup (hypnotist and backturn)
+- gets 80 damage on hellsweep
+
+thesis: GTO is useful in forced simultaneous decision points
