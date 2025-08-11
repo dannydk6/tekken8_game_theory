@@ -70,12 +70,26 @@ def create_excel_file(out_filename, input_dir, output_dir=None, precision=0, dro
     
     # Define Yellow Neutral Style
     yellow_neutral_fill = PatternFill(start_color="FFF2CC", end_color="FFF2CC", fill_type="solid")  # Pale yellow
-    yellow_neutral_font = Font(color="7F6000")  # Dark brownish-gray
+    yellow_neutral_font = Font(size=12, color="7F6000")  # Dark brownish-gray
+
+    # Define Green Good Style
+    green_good_fill = PatternFill(fill_type="solid", start_color="FFC6EFCE" if False else "C6EFCE", end_color="C6EFCE")
+    green_good_font = Font(size=12, color="006100")
+
+    # Define Red Bad style
+    red_bad_fill = PatternFill(fill_type="solid", start_color="FFFFC7CE", end_color="FFFFC7CE")
+    red_bad_font = Font(size=12, color="FF9C0006")
     
     with pd.ExcelWriter(out_path, engine="openpyxl") as writer:
         for gto_distribution in gto_distributions:
             df = gto_distribution["df"]
             metadata = gto_distribution["metadata"]
+
+            # Get the values for P1 and P2
+            P1 = metadata['P1']
+            P2 = metadata['P2']
+
+            #print(f"P1: {P1}\nP2: {P2}\n")
             
             # Sheet name
             sheet_name = metadata['title'][:min(31,len(metadata['title']))]
@@ -99,12 +113,6 @@ def create_excel_file(out_filename, input_dir, output_dir=None, precision=0, dro
             sheet["A1"] = metadata["title"]
             sheet["A1"].font = title_font
             sheet["A1"].alignment = alignment_center
-
-            # Highlight Payoff
-            payoff_cell = "B4"
-            sheet[payoff_cell].fill = yellow_neutral_fill
-            sheet[payoff_cell].font = yellow_neutral_font
-            sheet[payoff_cell].border = border_style
 
             # Add border to title
             for l in range(1, len(df.columns)+1):
@@ -131,9 +139,22 @@ def create_excel_file(out_filename, input_dir, output_dir=None, precision=0, dro
             # Apply borders to the data table and Adjust precision on distribution column
             fmt_string = excel_nformat_precision(precision)
             for row in sheet.iter_rows(min_row=startrow+1, max_row=startrow + len(df) + 1, min_col=1, max_col=len(df.columns)):
+                # Get the current player's name
+                player_val = row[0].value
+
                 for cell in row:
                     cell.border = border_style
                     cell.alignment = Alignment(wrap_text=True)
+
+                    #print(f"player_val: {player_val}, P1: {P1}, P2: {P2}")
+
+                    # Change the fill if the row contains P1 or P2
+                    if player_val == P1:
+                        cell.font = green_good_font
+                        cell.fill = green_good_fill
+                    elif player_val == P2:
+                        cell.font = red_bad_font
+                        cell.fill = red_bad_fill
 
                     # Distribution column formatting
                     if cell.column == 3:
@@ -146,11 +167,30 @@ def create_excel_file(out_filename, input_dir, output_dir=None, precision=0, dro
                 for cell in col:
                     try:  # Necessary to handle cases where the cell value is None
                         # Excluding the "Comment" field
-                        if cell.value and cell.coordinate != 'B6':
+                        # TODO: replace hardcoded B5 with ref to comment cell
+                        if cell.value and cell.coordinate != 'B5':
                             max_length = max(max_length, len(str(cell.value)))
                     except:
                         pass
                 sheet.column_dimensions[col_letter].width = max_length + 2  # Add some padding
+
+            # Highlight P1 Cell
+            p1_cell = "B2"
+            sheet[p1_cell].fill = green_good_fill
+            sheet[p1_cell].font = green_good_font
+            sheet[p1_cell].border = border_style
+
+            # Highlight P2 Cell
+            p2_cell = "B3"
+            sheet[p2_cell].fill = red_bad_fill
+            sheet[p2_cell].font = red_bad_font
+            sheet[p2_cell].border = border_style
+
+            # Highlight Payoff
+            payoff_cell = "B4"
+            sheet[payoff_cell].fill = yellow_neutral_fill
+            sheet[payoff_cell].font = yellow_neutral_font
+            sheet[payoff_cell].border = border_style
 
     return gto_distributions
 
