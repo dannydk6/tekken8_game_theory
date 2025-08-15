@@ -1,0 +1,43 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<gambit:document xmlns:gambit="http://gambit.sourceforge.net/" version="0.1">
+<colors>
+<player id="-1" red="0" green="0" blue="0" />
+<player id="0" red="154" green="205" blue="50" />
+<player id="1" red="255" green="0" blue="0" />
+<player id="2" red="0" green="0" blue="255" />
+</colors>
+<font size="10" family="74" face="Arial" style="90" weight="400" />
+<numbers decimals="4"/>
+<game>
+<nfgfile>
+NFG 1 R "Cammy OKI throw MS (+17)" { "Cammy1" "Cammy2NoDP" }
+
+{ { "dr. mp" "f.dash" "dr. throw" }
+{ "db" "f.j" "n.j" "jab" "throw tech" "delayed tech" "drive reversal" "parry" "cr.MK" "backdash" "st.mp" }
+}
+"Cammy OKI throw MS (+17), with DRIVE REVERSAL WAKEUP since drive rush is reactable and can't be baited"
+
+{
+{ "" 1200, -1200 }
+{ "" 2000, -2000 }
+{ "" 1200, -1200 }
+{ "" 2000, -2000 }
+{ "" 1200, -1200 }
+{ "" 2120, -2120 }
+{ "" -1350, 1350 }
+{ "" 2120, -2120 }
+{ "" 2570, -2570 }
+{ "" -500, 500 }
+{ "" -1345, 1345 }
+{ "" 2040, -2040 }
+{ "" 2120, -2120 }
+{ "" 1200, -1200 }
+{ "" 2000, -2000 }
+{ "" 2120, -2120 }
+{ "" -2570, 2570 }
+}
+0 0 1 2 0 3 4 0 5 6 0 7 8 0 0 0 0 0 9 0 10 11 0 12 13 0 14 15 0 0 16 0 17
+</nfgfile>
+</game>
+</gambit:document>
