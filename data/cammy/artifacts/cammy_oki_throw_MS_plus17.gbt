@@ -13,8 +13,8 @@
 <nfgfile>
 NFG 1 R "Cammy OKI throw MS (+17)" { "Cammy1" "Cammy2NoDP" }
 
-{ { "dr. mp" "f.dash" "dr. throw" }
-{ "db" "f.j" "n.j" "jab" "throw tech" "delayed tech" "drive reversal" "parry" "cr.MK" "backdash" "st.mp" }
+{ { "dr. mp" "f.dash" "dr. throw" "dr. whiff jab" }
+{ "db" "f.j" "n.j" "jab" "throw tech" "delayed tech" "drive reversal" "parry" "cr.MK" "backdash" }
 }
 "Cammy OKI throw MS (+17), with DRIVE REVERSAL WAKEUP since drive rush is reactable and can't be baited"
 
@@ -22,22 +22,27 @@ NFG 1 R "Cammy OKI throw MS (+17)" { "Cammy1" "Cammy2NoDP" }
 { "" 1200, -1200 }
 { "" 2000, -2000 }
 { "" 1200, -1200 }
+{ "" 1200, -1200 }
 { "" 2000, -2000 }
+{ "" 1200, -1200 }
 { "" 1200, -1200 }
 { "" 2120, -2120 }
 { "" -1350, 1350 }
+{ "" -1460, 1460 }
 { "" 2120, -2120 }
+{ "" 2510, -2510 }
+{ "" 2510, -2510 }
 { "" 2570, -2570 }
 { "" -500, 500 }
+{ "" 2570, -2570 }
 { "" -1345, 1345 }
+{ "" 2040, -2040 }
 { "" 2040, -2040 }
 { "" 2120, -2120 }
 { "" 1200, -1200 }
 { "" 2000, -2000 }
-{ "" 2120, -2120 }
-{ "" -2570, 2570 }
 }
-0 0 1 2 0 3 4 0 5 6 0 7 8 0 0 0 0 0 9 0 10 11 0 12 13 0 14 15 0 0 16 0 17
+0 0 1 0 2 0 3 4 5 0 6 7 8 0 9 10 11 0 0 12 0 0 0 13 14 0 15 16 17 0 18 19 20 0 21 0 22 0 0 0
 </nfgfile>
 </game>
 </gambit:document>
