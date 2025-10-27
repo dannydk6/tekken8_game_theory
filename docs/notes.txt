@@ -29,7 +29,7 @@ skew BT.1,2's payoff towards a positive number.
 - the decision point of the attacker for strings determines whether an option/strategy is upstream or downstream
 - if the gto distribution contains a string starter as an option, back induction is required for downstream string extension percentages.
 - how we do back induction: summation of the probabilities times their payoffs
-- how much does the threat of the other options reduce the damage taken by BT.3,4 on block?
+- how much does the threat of the other options reduce the damage taken by BT.4,3 on block?
 (sum of probabilities of defender's gto winning options) * payoff
 
 notes:
